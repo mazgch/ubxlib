@@ -128,8 +128,6 @@
 # define U_CFG_APP_PIN_CELL_RESET             -1
 #endif
 
-#define U_CELL_VINT_PIN_INVERTED
-
 #ifndef U_CFG_APP_PIN_CELL_VINT
 /** The ESP32 GPIO input that is connected to the VInt pin of the
  * cellular module. -1 should be used where there is no such
