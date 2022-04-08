@@ -182,7 +182,7 @@ int32_t uCellAdd(uCellModuleType_t moduleType,
     int32_t enablePowerAtStart;
 	int32_t pinEnablePowerLvl = (pinEnablePower & U_CELL_PIN_INVERTED) ? 0 : 1;
     int32_t pinPwrOnLvl = (pinPwrOn & U_CELL_PIN_INVERTED) ? 0 : 1;
-    int32_t pinVIntLvl = (pinVInt & ~U_CELL_PIN_INVERTED) ? 0 : 1;
+    int32_t pinVIntLvl = (pinVInt & U_CELL_PIN_INVERTED) ? 0 : 1;
     pinEnablePower &= ~U_CELL_PIN_INVERTED;
     pinPwrOn &= ~U_CELL_PIN_INVERTED;
     pinVInt &= ~U_CELL_PIN_INVERTED;
