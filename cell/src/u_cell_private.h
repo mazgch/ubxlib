@@ -147,6 +147,7 @@ extern "C" {
 # define U_CELL_PRIVATE_UART_WAKE_UP_RETRY_INTERVAL_MS 333
 #endif
 
+
 /* ----------------------------------------------------------------
  * TYPES
  * -------------------------------------------------------------- */
@@ -322,6 +323,10 @@ typedef struct uCellPrivateInstance_t {
     int32_t pinDtrPowerSaving; /**< The pin that is connected to the
                                     cellular module's DTR pin, ONLY used
                                     for UPSV mode 3, -1 otherwise. */
+	int8_t pinEnablePowerLvl; 
+    int8_t pinPwrOnLvl;
+    int8_t pinVIntLvl;
+    int8_t pinDtrPowerSavingLvl;
     char mccMnc[U_CELL_NET_MCC_MNC_LENGTH_BYTES]; /**< The MCC MNC if manual
                                                        network selection has
                                                        been requested (set
