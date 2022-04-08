@@ -1113,7 +1113,7 @@ static void waitForPowerOff(uCellPrivateInstance_t *pInstance,
         if (pInstance->pinVInt >= 0) {
             // If we have a VInt pin then wait until that
             // goes to the off state
-            moduleIsOff = (uPortGpioGet(pInstance->pinVInt) == pInstance->pinVIntLvl);
+            moduleIsOff = (uPortGpioGet(pInstance->pinVInt) ==! pInstance->pinVIntLvl);
         } else {
             // Wait for the module to stop responding at the AT interface
             // by poking it with "AT"
@@ -2050,8 +2050,8 @@ int32_t uCellPwrSetDtrPowerSavingPin(int32_t cellHandle, int32_t pin)
     int32_t errorCode = (int32_t) U_ERROR_COMMON_NOT_INITIALISED;
     uCellPrivateInstance_t *pInstance;
     uPortGpioConfig_t gpioConfig;
-	int32_t pinLvl = (pin & U_CELL_PIN_INVERTED) ? 0 : 1;
-	pin &= ~U_CELL_PIN_INVERTED;
+    int32_t pinLvl = (pin & U_CELL_PIN_INVERTED) ? 0 : 1;
+    pin &= ~U_CELL_PIN_INVERTED;
 
     if (gUCellPrivateMutex != NULL) {
 
@@ -2074,7 +2074,7 @@ int32_t uCellPwrSetDtrPowerSavingPin(int32_t cellHandle, int32_t pin)
                 errorCode = uPortGpioConfig(&gpioConfig);
                 if (errorCode == 0) {
                     pInstance->pinDtrPowerSaving = pin;
-					pInstance->pinDtrPowerSavingLvl = pinLvl;
+                    pInstance->pinDtrPowerSavingLvl = pinLvl;
                     uPortLog("U_CELL_PWR: pin %d (0x%02x), connected to module DTR"
                              " pin, is being used to control power saving,"
                              " where %d means \"DTR on\" (and hence power"

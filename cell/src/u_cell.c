@@ -180,8 +180,8 @@ int32_t uCellAdd(uCellModuleType_t moduleType,
     uCellPrivateInstance_t *pInstance = NULL;
     uPortGpioConfig_t gpioConfig;
     int32_t enablePowerAtStart;
-	int32_t pinEnablePowerLvl = (pinEnablePower & U_CELL_PIN_INVERTED) ? 0 : 1;
-    int32_t pinPwrOnLvl = (pinPwrOn & U_CELL_PIN_INVERTED) ? 0 : 1;
+    int32_t pinEnablePowerLvl = (pinEnablePower & U_CELL_PIN_INVERTED) ? 0 : 1;
+    int32_t pinPwrOnLvl = (pinPwrOn & U_CELL_PIN_INVERTED) ? 1 : 0;
     int32_t pinVIntLvl = (pinVInt & U_CELL_PIN_INVERTED) ? 0 : 1;
     pinEnablePower &= ~U_CELL_PIN_INVERTED;
     pinPwrOn &= ~U_CELL_PIN_INVERTED;
@@ -215,7 +215,7 @@ int32_t uCellAdd(uCellModuleType_t moduleType,
                 pInstance->pinEnablePower = pinEnablePower;
                 pInstance->pinPwrOn = pinPwrOn;
                 pInstance->pinVInt = pinVInt;
-				pInstance->pinEnablePowerLvl = pinEnablePowerLvl;
+                pInstance->pinEnablePowerLvl = pinEnablePowerLvl;
                 pInstance->pinPwrOnLvl = pinPwrOnLvl;
                 pInstance->pinVIntLvl = pinVIntLvl;
                 pInstance->pinDtrPowerSaving = -1;
@@ -237,7 +237,7 @@ int32_t uCellAdd(uCellModuleType_t moduleType,
 
                 // Now set up the pins
                 uPortLog("U_CELL: initialising with enable power pin ");
-				if (pinEnablePower >= 0) {
+                if (pinEnablePower >= 0) {
                     uPortLog("%d (0x%02x) (where %d is on), ", pinEnablePower,
                              pinEnablePower, pinEnablePowerLvl);
                 } else {
@@ -270,18 +270,18 @@ int32_t uCellAdd(uCellModuleType_t moduleType,
                     if (platformError == 0) {
                         U_PORT_GPIO_SET_DEFAULT(&gpioConfig);
                         gpioConfig.pin = pinPwrOn;
-						if (pinPwrOnLvl == 0) {
-							// TODO: the u-blox C030-R412M board requires a pull-up here.
-							gpioConfig.pullMode = U_PORT_GPIO_PULL_MODE_PULL_UP;
-						}
-						
+                        if (pinPwrOnLvl == 0) {
+                            // TODO: the u-blox C030-R412M board requires a pull-up here.
+                            gpioConfig.pullMode = U_PORT_GPIO_PULL_MODE_PULL_UP;
+                        }
+                        
 /** The drive mode for the PWR_ON pin.
  */
 #ifdef U_CELL_PWR_ON_PIN_DRIVE_MODE
-						gpioConfig.driveMode = U_CELL_PWR_ON_PIN_DRIVE_MODE;
+                        gpioConfig.driveMode = U_CELL_PWR_ON_PIN_DRIVE_MODE;
 #else
                         gpioConfig.driveMode = (pinPwrOnLvl == 0) ? U_PORT_GPIO_DRIVE_MODE_OPEN_DRAIN : 
-																	U_PORT_GPIO_DRIVE_MODE_NORMAL;
+                                                                    U_PORT_GPIO_DRIVE_MODE_NORMAL;
 #endif
                         gpioConfig.direction = U_PORT_GPIO_DIRECTION_OUTPUT;
                         platformError = uPortGpioConfig(&gpioConfig);
