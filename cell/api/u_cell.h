@@ -68,36 +68,7 @@ extern "C" {
 # define U_CELL_UART_BAUD_RATE 115200
 #endif
 
-/** There can be an inverter in-line between the MCU pin
- * that is connected to the cellular module's PWR_ON pin;
- * this allows the sense to be switched easily.
- */
-#ifndef U_CELL_PWR_ON_PIN_INVERTED
-# define U_CELL_PWR_ON_PIN_TOGGLE_TO_STATE 0
-#else
-# define U_CELL_PWR_ON_PIN_TOGGLE_TO_STATE 1
-#endif
-
-/** There can be an inverter in-line between the MCU pin
- * and the thing (e.g. a transistor) that is enabling power to
- * the cellular module; this allows the sense to be switched
- * easily.
- */
-#ifndef U_CELL_ENABLE_POWER_PIN_INVERTED
-# define U_CELL_ENABLE_POWER_PIN_ON_STATE 1
-#else
-# define U_CELL_ENABLE_POWER_PIN_ON_STATE 0
-#endif
-
-/** There can be an inverter in-line between the VINT pin
- * on the cellular module and the MCU pin; this allows the sense
- * to be switched easily.
- */
-#ifndef U_CELL_VINT_PIN_INVERTED
-# define U_CELL_VINT_PIN_ON_STATE 1
-#else
-# define U_CELL_VINT_PIN_ON_STATE 0
-#endif
+#define U_CELL_PIN_INVERTED 	0x80
 
 #ifndef U_CELL_POWER_SAVING_UART_INACTIVITY_TIMEOUT_SECONDS
 /** The time for which the cellular module's UART should remain
